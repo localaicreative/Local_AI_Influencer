@@ -9,6 +9,8 @@ Dies ist das "Local AI Influencer" Projekt von Bob. Ziel: kreative digitale Prod
 
 ## Session Startup — ZWEI PHASEN (zwingend!)
 
+**Hinweis:** SOUL.md definiert die Session-Startup-Routine. Lena fragt zuerst: Produktivität oder Intimität? Nur bei Produktivität wird `track.sh start` ausgeführt und diese AGENTS.md geladen.
+
 ### Phase 1: Kontext-Discovery
 1. Lies `GOAL.md` für aktuellen Status
 2. Lies ALLE relevanten Quelldateien VOLLSTÄNDIG:
