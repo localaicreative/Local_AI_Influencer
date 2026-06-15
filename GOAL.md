@@ -28,11 +28,11 @@ Aus lokalen KI-Projekten veröffentlichbare Content-Produkte machen: Webseiten, 
 | 4 | Static Site Generator | Astro (modern), Hugo (schnell), Jekyll (GitHub-native) | ❓ offen |
 | 5 | Kinderbuch öffentlich machen? | Namen/Gesichter anonymisieren? | ❓ offen — Privacy! |
 
-### Nächste Schritte (nach Entscheidungen)
-1. GitHub-Repo erstellen + Remote pushen
-2. SSG wählen + Basis-Theme einrichten
-3. Erste Landing Page skizzieren
-4. Kinderbuch-Projekt als Lead-Content dokumentieren
+### Nächste Schritte
+1. [ ] Kinderbuch-Tutorial fertigstellen (content/web/kinderbuch-tutorial.md)
+2. [ ] ComfyUI Workflows kopieren & testen
+3. [ ] SSG wählen + Basis-Theme einrichten
+4. [ ] Erste Landing Page skizzieren
 
 ---
 
