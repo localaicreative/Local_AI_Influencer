@@ -23,8 +23,8 @@ Aus lokalen KI-Projekten veröffentlichbare Content-Produkte machen: Webseiten, 
 ### Offene Entscheidungen (Blocker)
 | # | Frage | Optionen | Status |
 |---|-------|----------|--------|
-| 2 | Seiten-Name / Branding | localaicreative.com? ai-craft.de? | ❓ offen |
-| 3 | Domain registrieren | .com, .de, .dev | ❓ offen |
+| 2 | Seiten-Name / Branding | Später — jetzt intern arbeiten | ⏸️ aufgeschoben |
+| 3 | Domain registrieren | Später — wenn online | ⏸️ aufgeschoben |
 | 4 | Static Site Generator | Astro (modern), Hugo (schnell), Jekyll (GitHub-native) | ❓ offen |
 | 5 | Kinderbuch öffentlich machen? | Namen/Gesichter anonymisieren? | ❓ offen — Privacy! |
 
