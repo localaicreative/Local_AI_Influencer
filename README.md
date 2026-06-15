@@ -195,7 +195,8 @@ Local_AI_Influencer/
 
 | Frage | Status | Entscheidung |
 |-------|--------|--------------|
-| Git-Account & Repo-Name | Offen | |
+| Git-Account & Repo-Name | Erledigt | `localaicreative` (SSH ✓) |
+| Remote-Repo auf GitHub | Offen | noch nicht erstellt |
 | Seiten-Name/Branding | Offen | |
 | Domain (.com/.de) | Offen | |
 | Kinderbuch: Öffentlich teilbar? | Offen | |
