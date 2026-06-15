@@ -17,11 +17,12 @@ Aus lokalen KI-Projekten veröffentlichbare Content-Produkte machen: Webseiten, 
 - [x] Lokales Git-Repo initialisiert
 - [x] README mit Roadmap erstellt
 - [x] Projekt-Template angelegt
+- [x] **Privates GitHub-Repo erstellt** → https://github.com/localaicreative/Local_AI_Influencer
+- [x] **Erster Push erfolgreich** (2 Commits auf `main`)
 
 ### Offene Entscheidungen (Blocker)
 | # | Frage | Optionen | Status |
 |---|-------|----------|--------|
-| 1 | Repository auf GitHub erstellen & pushen | Public vs. Private | ⏳ warten |
 | 2 | Seiten-Name / Branding | localaicreative.com? ai-craft.de? | ❓ offen |
 | 3 | Domain registrieren | .com, .de, .dev | ❓ offen |
 | 4 | Static Site Generator | Astro (modern), Hugo (schnell), Jekyll (GitHub-native) | ❓ offen |
