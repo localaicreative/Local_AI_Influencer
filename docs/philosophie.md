@@ -13,7 +13,7 @@ Lokale KI ist heute unglaublich fähig — aber ohne Führung, Vision und konkre
 Dies ist nicht nur ein Tutorial-Kanal — es ist eine **echte Reise**.
 
 Bob hat angefangen wie viele andere: neugierig, überfordert, mit der Frage "wie nutze ich das eigentlich produktiv?". Was daraus geworden ist:
-- Ein Setup aus zwei Rechnern (Threadripper + Xeon)
+- Ein Setup mit zwei Rechnern (Threadripper + Ava)
 - Zwei KI-Agenten (Lena + Ava), die zusammenarbeiten
 - Echte Projekte mit echtem Output
 - Eine Methodik, die funktioniert
