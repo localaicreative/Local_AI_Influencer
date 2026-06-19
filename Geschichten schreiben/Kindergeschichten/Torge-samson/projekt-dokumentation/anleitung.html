@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torge & Samson – Projekt-Dokumentation</title>
+    <style>
+        :root {
+            --ocean-deep: #1a365d;
+            --ocean-mid: #2c5282;
+            --ocean-light: #4299e1;
+            --sky: #ebf8ff;
+            --sand: #fefcbf;
+            --sand-dark: #ecc94b;
+            --coral: #fc8181;
+            --white: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: linear-gradient(135deg, var(--sky) 0%, #f7fafc 100%);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
+            color: white;
+            border-radius: 0 0 2rem 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(26, 54, 93, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        header .emoji-row {
+            font-size: 2rem;
+            margin-top: 1rem;
+        }
+
+        section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: var(--ocean-deep);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--sand-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h2 .icon {
+            font-size: 1.5em;
+        }
+
+        h3 {
+            color: var(--ocean-mid);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .need-statement {
+            background: linear-gradient(135deg, var(--sand), #fefce8);
+            padding: 2rem;
+            border-radius: 1rem;
+            border-left: 6px solid var(--sand-dark);
+            margin-bottom: 2rem;
+        }
+
+        .need-statement p {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            background: #f7fafc;
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--ocean-light);
+            position: relative;
+            padding-left: 4rem;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--ocean-light);
+            color: white;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .step-list li strong {
+            color: var(--ocean-deep);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .file-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .file-card {
+            background: #f7fafc;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--ocean-mid);
+        }
+
+        .file-card h4 {
+            color: var(--ocean-deep);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .file-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 0;
+        }
+
+        .file-path {
+            background: #edf2f7;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.4rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: var(--ocean-mid);
+        }
+
+        .episode-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .episode-card {
+            background: linear-gradient(135deg, #f7fafc, var(--sky));
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--coral);
+        }
+
+        .episode-card h4 {
+            color: var(--ocean-deep);
+            margin-bottom: 0.5rem;
+        }
+
+        .episode-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #48bb78;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .status-badge.completed {
+            background: #48bb78;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+
+        .warning-box {
+            background: #fffaf0;
+            border-left: 4px solid var(--sand-dark);
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box strong {
+            color: #c05621;
+        }
+
+        /* Neue Styles für Prompt-Beispiele */
+        .prompt-example {
+            background: #f8fafc;
+            border: 2px solid var(--ocean-light);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .prompt-example .label {
+            background: var(--ocean-light);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.4rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .explanation-box {
+            background: #e6fffa;
+            border-left: 4px solid #38b2ac;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .explanation-box strong {
+            color: #234e52;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-table th {
+            background: var(--ocean-deep);
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        .bad-example {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+
+        .good-example {
+            color: #38a169;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+            
+            .step-list li {
+                padding-left: 3.5rem;
+            }
+
+            .prompt-example {
+                font-size: 0.8rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌊 Torge & Samson auf hoher See</h1>
+        <p class="subtitle">Projekt-Dokumentation & Vorgehensanleitung</p>
+        <div class="emoji-row">⛵ 🐕 👦 ❤️</div>
+    </header>
+
+    <div class="container">
+        <!-- Abschnitt 1: Das Bedürfnis -->
+        <section>
+            <h2><span class="icon">💡</span> Das Bedürfnis</h2>
+            
+            <div class="need-statement">
+                <p>"Jedes Kind verdient eine Geschichte, die nur für es geschrieben wurde – mit Figuren, die wie es selbst sind, an Orten, die zum Träumen einladen, und Abenteuern, die im Herzen bleiben. Nicht irgendein Buch vom Regal, sondern <strong>dieses</strong>: personalisiert, liebevoll gemacht, mit Raum für Lachen, Staunen und das Gefühl von Geborgenheit."</p>
+            </div>
+
+            <p>Diese Dokumentation beschreibt den vollständigen Prozess der Erstellung einer individuellen Kinderbuchreihe – speziell zugeschnitten auf die Wünsche eines Kindes. Im vorliegenden Fall entstand so die Geschichte von <strong>Torge & Samson</strong>, einem neugierigen Jungen und seinem treuen Labradoodle, die gemeinsam vier Wochen lang durch die Dänische Südsee segeln.</p>
+
+            <h3>Zielgruppe</h3>
+            <ul class="checklist">
+                <li><strong>Alter:</strong> 6–8 Jahre</li>
+                <li><strong>Sprache:</strong> Einfach, aber bildhaft – Sätze ≤25 Wörter, kein abstrakter Wortschatz</li>
+                <li><strong>Thema:</strong> Abenteuer am Meer, Segeln, Freundschaft, Familie</li>
+                <li><strong>Format:</strong> 10 Kapitelgeschichten mit je einem Hafen/Ort als Schauplatz</li>
+            </ul>
+        </section>
+
+        <!-- Abschnitt 2: Die Welt-Bibel -->
+        <section>
+            <h2><span class="icon">📖</span> Schritt 1: Die Welt-Bibel erstellen</h2>
+            
+            <p>Zuerst wird eine umfassende <strong>Welt-Bibel</strong> erstellt – das Fundament aller folgenden Schritte. Sie enthält alle Fakten, die konsistent in der Geschichte verwendet werden müssen:</p>
+
+            <div class="explanation-box">
+                <strong>🤔 Warum überhaupt eine Welt-Bibel?</strong><br><br>
+                Stell dir vor, du schreibst ein Buch und vergisst, wie die Hauptfigur heißt – oder beschreibst sie mal als blonde, mal als dunkelhaarige Person. Das wäre verwirrend! Bei einer KI-generierten Geschichte ist das noch schwieriger: Die KI "vergisst" nach jeder Episode, was vorher passiert ist.<br><br>
+                <strong>Lösung:</strong> Wir schreiben ALLE Fakten an einen zentralen Ort – die Welt-Bibel. So hat die KI bei jeder neuen Episode alle wichtigen Informationen parat und kann konsistent bleiben.
+            </div>
+
+            <h3>Inhalte der Welt-Bibel</h3>
+            <ul class="checklist">
+                <li><strong>Die Figuren:</strong> Torge (7-8 Jahre, blond, blauäugig), Samson (Labradoodle, flauschig, wasserverliebt), Eltern, Oma & Opa</li>
+                <li><strong>Das Boot:</strong> „Sonderborger Seeräube" – Zuhause der Familie für vier Wochen</li>
+                <li><strong>Die Welt:</strong> Dänische Südsee, Sønderborg Lystbådehavn (Heimathafen), Hoersuphav, Gråsten</li>
+                <li><strong>Regeln:</strong> Respekt vor dem Meer, Samsons Freiheit, Bootssicherheit, Naturrespekt</li>
+            </ul>
+
+            <div class="file-grid">
+                <div class="file-card">
+                    <h4>🌍 Welt-Bibel (world_bible.md)</h4>
+                    <p>Enthält alle Fakten zu Figuren, Orten, Booten und Regeln der Geschichte. Dient als Referenz für jedes neue Kapitel.</p>
+                    <span class="file-path">references/torge-samson/world_bible.md</span>
+                </div>
+
+                <div class="file-card">
+                    <h4>🗺️ Story Master Plan (story_master_plan.md)</h4>
+                    <p>Plant alle 10 Episoden mit Handlungsskizzen, Moral/Lehre und Figuren. Zeigt den Fortschritt der Reihe.</p>
+                    <span class="file-path">references/torge-samson/story_master_plan.md</span>
+                </div>
+
+                <div class="file-card">
+                    <h4>🎯 Nächste Schritte (next_goal.md)</h4>
+                    <p>Dokumentiert den aktuellen Fortschritt und enthält den Prompt für das nächste Kapitel.</p>
+                    <span class="file-path">references/torge-samson/next_goal.md</span>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Wichtig:</strong> Alle Episoden müssen strikt an den Fakten der Welt-Bibel festhalten. Namen, Orte und Charaktereigenschaften dürfen nicht widersprüchlich verwendet werden.
+            </div>
+        </section>
+
+        <!-- Abschnitt 3: Der Schreibprozess -->
+        <section>
+            <h2><span class="icon">✍️</span> Schritt 2: Episoden schreiben</h2>
+            
+            <p>Jede Episode wird nach einem klaren Muster erstellt. Hier ist der wiederkehrende Prozess:</p>
+
+            <ol class="step-list">
+                <li>
+                    <strong>Kontext laden</strong>
+                    Welt-Bibel und Story Master Plan lesen, um alle Fakten zu Figuren, Orten und Regeln nachzuschlagen.
+                </li>
+                <li>
+                    <strong>Episode schreiben</strong>
+                    Das Kapitel wird als Markdown-Datei verfasst (~500–800 Wörter). Achte auf: einfache Sprache, bildhafte Beschreibungen, klare Handlung mit kleinem Konflikt und Lösung.
+                </li>
+                <li>
+                    <strong>Statusdatei erstellen</strong>
+                    Eine Zusammenfassung der Episode wird erstellt (max. 10 Sätze), wichtige Orte & Figuren aufgelistet und offene Fäden für spätere Episoden dokumentiert.
+                </li>
+                <li>
+                    <strong>Masterplan aktualisieren</strong>
+                    Der Story Master Plan wird aktualisiert – die Episode auf „✅ Fertig" setzen und den Fortschritt erhöhen.
+                </li>
+                <li>
+                    <strong>Nächste Schritte planen</strong>
+                    Die next_goal.md wird mit dem exakten Prompt für das nächste Kapitel aktualisiert, inklusive Zusammenfassung aller bisherigen Episoden.
+                </li>
+            </ol>
+
+            <h3>Prompt-Beispiel: Episode schreiben</h3>
+            
+            <div class="prompt-example">
+<span class="label">📝 PROMPT FÜR EPISODE 1</span>Du bist ein erfahrener Autor von Kinderbüchern für die Zielgruppe 6-8 Jahre.
+
+Aufgabe: Schreibe Episode 1: „Willkommen in Sonderborg!"
+
+Kontext aus vorherigen Episoden:
+Keine – dies ist der erste Teil der Reihe!
+
+Welt-Bibel Referenz: Lies ~/.hermes/profiles/ava/skills/hermes-agent/references/torge-samson/world_bible.md für alle Fakten zu Figuren, 
+Orten und Regeln.
+
+Handlungsskizze für dieses Kapitel (aus story_master_plan.md):
+Die Familie kommt mit der „Sonderborger Seeräube" im Hafen von Sonderborg an. Torge ist begeistert von den vielen Booten und rennt sofort 
+zum Spielplatz. Samson schnüffelt fröhlich durch die Buchenwälder. Am Abend entdecken sie die lange Seebrücke, wo sie erste Krabben sehen.
+
+Anforderungen:
+- Sprache: Einfach, aber bildhaft (für Kinder ab 6 Jahren)
+- Länge: ca. 500 Wörter
+- Struktur: Klare Handlung mit einem kleinen Konflikt und einer Lösung
+- ACHTUNG: Halte dich strikt an die Regeln der Welt-Bibel!
+- Beziehe konkrete Orte aus der Welt-Bibel ein (z.B. „Café MARINA", „Krabbenparcours", „Buchenwälder")
+
+ARBEITSSCHRITTE:
+1. SCHREIBE das Kapitel und speichere es als episodes/episode_01_Willkommen_in_Sonderborg.md
+2. ERSTELLE episodes/episode_01_status.md mit:
+   - Handlungszusammenfassung (max 10 Sätze)
+   - Wichtige Orte & Figuren
+   - Offene Fäden für spätere Episoden
+   - Stimmung/Ton
+3. AKTUALISIERE story_master_plan.md (Status von Episode 1 auf „✅ Fertig" setzen)
+4. GENERIERE next_goal.md mit:
+   - Exaktem Prompt für Episode 2 („Samson im Krabbenparcours")
+   - Zusammenfassung aller bisherigen Episoden (nur Episode 1)
+   - Fortschrittsanzeige
+
+WICHTIG: Nach jedem Schritt die Dateien wirklich schreiben und prüfen!
+            </div>
+
+            <h3>Dateistruktur pro Episode</h3>
+            <div class="file-grid">
+                <div class="file-card">
+                    <h4>📄 Hauptdatei (episode_XX_Name.md)</h4>
+                    <p>Das eigentliche Kapitel mit der Geschichte. Enthält Titel, Wochen/Tag-Angabe und die Handlung.</p>
+                    <span class="file-path">episodes/episode_01_Willkommen_in_Sonderborg.md</span>
+                </div>
+
+                <div class="file-card">
+                    <h4>📋 Statusdatei (episode_XX_status.md)</h4>
+                    <p>Zusammenfassung, wichtige Orte & Figuren, offene Fäden, Stimmung/Ton.</p>
+                    <span class="file-path">episodes/episode_01_status.md</span>
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <strong>🤔 Warum diese Struktur?</strong><br><br>
+                Die Statusdatei ist wie ein „Spiegel" der Episode. Sie hilft dir später, schnell zu verstehen, was in jeder Episode passiert ist – ohne das ganze Kapitel lesen zu müssen. Außerdem dokumentiert sie „offene Fäden", die in späteren Episoden aufgegriffen werden können (z.B. „Samson hat einen Krabbenparcours entdeckt – könnte in Episode 5 wieder auftauchen!").
+            </div>
+        </section>
+
+        <!-- Abschnitt 4: Alle Episoden -->
+        <section>
+            <h2><span class="icon">📚</span> Die fertige Reihe – alle 10 Episoden</h2>
+            
+            <p>Hier ist die komplette Übersicht aller Kapitel, die im Projekt entstanden sind:</p>
+
+            <div class="episode-list">
+                <div class="episode-card">
+                    <h4>Episode 1: Willkommen in Sonderborg! 🏴‍☠️ <span class="status-badge completed">Fertig</span></h4>
+                    <p>Ankunft im Hafen, Spielplatz, Buchenwälder für Samson, Seebrücke mit Krabben.</p>
+                </div>
+
+                <div class="episode-card">
+                    <h4>Episode 2: Samson im Krabbenparcours 🦀 <span class="status-badge completed">Fertig</span></h4>
+                    <p>Krabben suchen am Strand, Geduld lernen – auch die Kleinen sind etwas Besonderes!</p>
+                </div>
+
+                <div class="episode-card">
+                    <h4>Episode 3: Die Fahrt nach Hoersuphav ⛵ <span class="status-badge completed">Fertig</span></h4>
+                    <p>Erstes Steuerrad-Erlebnis, Badesteg, Grillplatzgelände – Teamwork macht stark!</p>
+                </div>
+
+                <div class="episode-card">
+                    <h4>Episode 4: Das Geheimnis des Schlosskerkers 🏰 <span class="status-badge completed">Fertig</span></h4>
+                    <p>Schloss Sønderborg mit Kerker, König Christian II., Geschichte wird lebendig.</p>
+                </div>
+
+                <div class="episode-card">
+                    <h4>Episode 5: Samson auf der Jolle 🚣‍♂️ <span class="status-badge completed">Fertig</span></h4>
+                    <p>Jolle „Kleine Möwe", Mut bedeutet nicht, keine Angst zu haben.</p>
+                </div>
+
+                <div class="episode-card">
+                    <h4>Episode 6: Omaknas wienerbrød 🥐 <span class="status-badge completed">Fertig</span></h4>
+                    <p>Besuch bei Oma & Opa, wienerbrød backen, Familie ist das Wichtigste!</p>
+                </div>
+
+                <div class="episode-card">
+                    <h4>Episode 7: Die Klappbrücke geht auf! 🌉 <span class="status-badge completed">Fertig</span></h4>
+                    <p>Kong Christian den X's Bro, Signal geben – manchmal muss man warten.</p>
+                </div>
+
+                <div class="episode-card">
+                    <h4>Episode 8: Sturm und Sternschnuppen ⛈️✨ <span class="status-badge completed">Fertig</span></h4>
+                    <p>Sommersturm, Zelt unter Deck, Taschenlampe, Kekse – auch schlechtes Wetter kann schön sein.</p>
+                </div>
+
+                <div class="episode-card">
+                    <h4>Episode 9: Die Königsmöwe in Gråsten 👑🦅 <span class="status-badge completed">Fertig</span></h4>
+                    <p>Fahrt nach Gråsten, besondere Möwe, freundlich zu allen Lebewesen.</p>
+                </div>
+
+                <div class="episode-card">
+                    <h4>Episode 10: Heimfahrt mit vollem Herzen ❤️⛵ <span class="status-badge completed">Fertig</span></h4>
+                    <p>Rücksegeln, alle Abenteuer回顾ieren, die schönsten Erinnerungen nimmt man mit nach Hause.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, var(--sand), #fefce8); border-radius: 1rem;">
+                <h3 style="color: var(--ocean-deep); margin-bottom: 0.5rem;">🎉 REIHE ABGESCHLOSSEN!</h3>
+                <p><strong>10 von 10 Episoden</strong> abgeschlossen (100%)<br>
+                Gesamtumfang: ~7.260 Wörter in 10 Kapiteln</p>
+            </div>
+        </section>
+
+        <!-- Abschnitt 5: Lektorat -->
+        <section>
+            <h2><span class="icon">🔍</span> Schritt 3: Lektorat & Qualitätssicherung</h2>
+            
+            <p>Nach dem Schreiben aller Episoden folgt das systematische Lektorat. Hier werden alle Fehler gefunden und behoben:</p>
+
+            <ol class="step-list">
+                <li>
+                    <strong>Lektorats-Metaprompt erstellen</strong>
+                    Ein strukturierter Prompt wird erstellt, der drei Prüfebene enthält: Sprachlich/Syntax, Semantik/Welt-Bibel-Konformität und Logik/Kontinuität. Ausgabeformat priorisiert auf 🔴 Kritisch / 🟡 Hinweis / 🟢 Positiv.
+                </li>
+                <li>
+                    <strong>Lektorat durchführen</strong>
+                    Der Metaprompt wird über den /goal-Slash-Befehl an spezialisierte Agenten delegiert, die alle 10 Episoden parallel prüfen.
+                </li>
+                <li>
+                    <strong>Fehler analysieren & priorisieren</strong>
+                    Gefundene Fehler werden nach Dringlichkeit sortiert: P0 (sofort beheben), P1 (Samson denkt in Worten – verboten!), P2 (weitere Korrekturen).
+                </li>
+                <li>
+                    <strong>Korrekturen anwenden</strong>
+                    Alle Fehler werden direkt in die Dateien eingearbeitet. Wichtige Regeln: Samsons Innenleben wird durch Verhalten gezeigt, keine „dachte"-Sätze bei Tieren, Welt-Bibel-Fakten bleiben konsistent.
+                </li>
+            </ol>
+
+            <h3>Prompt-Beispiel: Lektorats-Metaprompt</h3>
+            
+            <div class="prompt-example">
+<span class="label">🔍 LEKTORATS-METAPROMPT (Auszug)</span>Du bist ein erfahrener Kinderbuch-Lektor mit Spezialisierung auf Texte für die Zielgruppe 6–8 Jahre. Deine Aufgabe ist es, Episode X systematisch zu prüfen und alle Fehler zu finden.
+
+PRÜFEBENE 1: Sprachlich/Syntax
+- Rechtschreibung und Grammatik prüfen
+- Satzlänge überprüfen (maximal 25 Wörter pro Satz)
+- Abstrakte Begriffe identifizieren, die für 6-Jährige zu schwer sind
+
+PRÜFEBENE 2: Semantik/Welt-Bibel-Konformität
+- Alle Figurennamen konsistent verwenden (Torge, Samson, etc.)
+- Orte korrekt benannt (Sønderborg mit ø, nicht "Sonderborg")
+- Bootsnamen stimmen (Sonderborger Seeräube)
+- Keine widersprüchlichen Beschreibungen
+
+PRÜFEBENE 3: Logik/Kontinuität
+- Samson denkt NIE in Worten! (Verhalten zeigen: hecheln, wedeln, Pfoten legen)
+- Keine Meta-Referenzen wie „in Episode 4" (bricht die vierte Wand)
+- Handlung logisch konsistent (z.B. Torge hat keinen Schwanz – nicht als Hund beschreiben)
+
+AUSGABEFORMAT:
+🔴 KRITISCH: MUSS SOFORT BESEITIGT WERDEN
+🟡 HINWEIS: Empfohlene Änderung für bessere Qualität
+🟢 POSITIV: Gut gemacht!
+
+7 GOLDENE REGELN:
+1. Samson denkt nie in Worten – nur Verhalten zeigen
+2. Keine abstrakten Begriffe für 6-Jährige
+3. Welt-Bibel-Fakten bleiben konsistent
+4. Keine Meta-Referenzen (keine Episodennummern)
+5. Natürliche Moralen ohne Belehrung
+6. Einfache, bildhafte Sprache
+7. Klare Handlung mit Konflikt und Lösung
+            </div>
+
+            <h3>Kritische Lektorats-Regeln</h3>
+            <ul class="checklist">
+                <li><strong>Samson denkt nie in Worten!</strong> Sein Innenleben wird ausschließlich durch Verhalten gezeigt (hecheln, wedeln, Pfoten legen).</li>
+                <li><strong>Keine abstrakten Begriffe</strong> für 6-Jährige – „Einsamkeit" wird zu „allein und traurig".</li>
+                <li><strong>Welt-Bibel-Konformität:</strong> Bootsnamen, Orte, Figurenbeschreibungen müssen überall gleich sein.</li>
+                <li><strong>Keine Meta-Referenzen:</strong> Keine Episodennummern wie „in Episode 4" – das bricht die vierte Wand.</li>
+                <li><strong>Konsistente Schreibweise:</strong> „Sønderborg" (nicht "Sonderborg"), „wienerbrød" (nicht "Zimtschnitten").</li>
+            </ul>
+
+            <div class="file-grid">
+                <div class="file-card">
+                    <h4>📝 Lektorats-Metaprompt (lektorat_metaprompt.md)</h4>
+                    <p>Strukturierter Prompt mit 3 Prüfebene, Ausgabeformat und 7 Goldenen Regeln für das Lektorat.</p>
+                    <span class="file-path">references/torge-samson/lektorat_metaprompt.md</span>
+                </div>
+            </div>
+
+            <h3>Gefundene Fehler (Beispiel)</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr style="background: var(--ocean-deep); color: white;">
+                        <th style="padding: 0.75rem; text-align: left;">Ebene</th>
+                        <th style="padding: 0.75rem; text-align: left;">Problem</th>
+                        <th style="padding: 0.75rem; text-align: left;">Lösung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fed7d7;">
+                        <td style="padding: 0.75rem;"><strong>🔴 Kritisch</strong></td>
+                        <td style="padding: 0.75rem;">Samson dachte „Spielzeit!"</td>
+                        <td style="padding: 0.75rem;">Verhalten zeigen: platschte ins Wasser</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem;"><strong>🔴 Kritisch</strong></td>
+                        <td style="padding: 0.75rem;">„nabeln" statt „knabbern"</td>
+                        <td style="padding: 0.75rem;">Korrektur des Wortes</td>
+                    </tr>
+                    <tr style="background: #fefcbf;">
+                        <td style="padding: 0.75rem;"><strong>🟡 Hinweis</strong></td>
+                        <td style="padding: 0.75rem;">„Einsamkeit" zu abstrakt</td>
+                        <td style="padding: 0.75rem;">„allein und traurig"</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem;"><strong>🟢 Positiv</strong></td>
+                        <td style="padding: 0.75rem;">Natürliche Moralen ohne Belehrung</td>
+                        <td style="padding: 0.75rem;">So beibehalten!</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="explanation-box">
+                <strong>🤔 Warum Samson nicht denken lassen in Worten?</strong><br><br>
+                Das ist eine wichtige Regel für Kinderbücher! Wenn ein Tier „denkt", wirkt das oft unnatürlich und bricht die Magie der Geschichte. Besser: Zeige, was Samson fühlt, indem du sein Verhalten beschreibst.<br><br>
+                
+                <strong>Beispiel:</strong><br>
+                ❌ <span class="bad-example">Samson dachte: „Das ist toll!"</span><br>
+                ✅ <span class="good_example">Samsons Schwanz wedelte wild und er hechelte vor Freude.</span><br><br>
+                
+                So bleibt die Geschichte authentisch und für Kinder nachvollziehbar!
+            </div>
+        </section>
+
+        <!-- Abschnitt 6: Dateistruktur -->
+        <section>
+            <h2><span class="icon">📁</span> Vollständige Dateistruktur</h2>
+            
+            <p>Hier ist die komplette Verzeichnisstruktur des Projekts:</p>
+
+            <div style="background: #1a202c; color: #e2e8f0; padding: 1.5rem; border-radius: 0.75rem; font-family: 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto;">
+<pre>
+torge-samson/
+│
+├── world_bible.md                    # 🌍 Welt-Bibel (Faktenbasis)
+├── story_master_plan.md              # 🗺️ Master-Plan aller Episoden
+├── next_goal.md                      # 🎯 Nächste Schritte & Fortschritt
+├── lektorat_metaprompt.md            # 🔍 Lektorats-Metaprompt
+│
+└── episodes/                         # 📚 Alle Kapitel
+    ├── episode_01_Willkommen_in_Sonderborg.md
+    ├── episode_01_status.md
+    ├── episode_02_Samson_im_Krabbenparcours.md
+    ├── episode_02_status.md
+    ├── episode_03_Die_Fahrt_nach_Hoersuphav.md
+    ├── episode_03_status.md
+    ├── episode_04_Das_Geheimnis_des_Schlosskerkers.md
+    ├── episode_04_status.md
+    ├── episode_05_Samson_auf_der_Jolle.md
+    ├── episode_05_status.md
+    ├── episode_06_Omaknas_wienerbrod.md
+    ├── episode_06_status.md
+    ├── episode_07_Die_Klappbruecke_geht_auf.md
+    ├── episode_07_status.md
+    ├── episode_08_Sturm_und_Sternschnuppen.md
+    ├── episode_08_status.md
+    ├── episode_09_Die_Koenigsmoewe_in_Graesten.md
+    ├── episode_09_status.md
+    ├── episode_10_Heimfahrt_mit_vollem_Herzen.md
+    └── episode_10_status.md
+
+└── projekt-dokumentation/            # 📖 Diese Dokumentation
+    └── anleitung.html                # ← Du bist hier!
+</pre>
+            </div>
+
+            <h3>Beschreibung der Dateien</h3>
+            <div class="file-grid">
+                <div class="file-card">
+                    <h4>🌍 world_bible.md</h4>
+                    <p><strong>Zweck:</strong> Zentrale Faktenbasis für alle Episoden.<br>
+                    <strong>Inhalt:</strong> Figuren, Orte, Boot, Regeln, Häfen der Dänischen Südsee.</p>
+                </div>
+
+                <div class="file-card">
+                    <h4>🗺️ story_master_plan.md</h4>
+                    <p><strong>Zweck:</strong> Gesamtübersicht aller 10 Episoden.<br>
+                    <strong>Inhalt:</strong> Handlungsskizzen, Moral/Lehre, Figuren, Fortschritt.</p>
+                </div>
+
+                <div class="file-card">
+                    <h4>🎯 next_goal.md</h4>
+                    <p><strong>Zweck:</strong> Dokumentation des aktuellen Status.<br>
+                    <strong>Inhalt:</strong> Zusammenfassung aller Episoden, Moralen, nächster Schritt.</p>
+                </div>
+
+                <div class="file-card">
+                    <h4>🔍 lektorat_metaprompt.md</h4>
+                    <p><strong>Zweck:</strong> Strukturierter Lektorats-Prompt.<br>
+                    <strong>Inhalt:</strong> 3 Prüfebene, Ausgabeformat 🔴🟡🟢, 7 Goldene Regeln.</p>
+                </div>
+
+                <div class="file-card">
+                    <h4>📄 episode_XX_Name.md</h4>
+                    <p><strong>Zweck:</strong> Das eigentliche Kapitel.<br>
+                    <strong>Inhalt:</strong> Titel, Wochen/Tag-Angabe, Handlung (~500–800 Wörter).</p>
+                </div>
+
+                <div class="file-card">
+                    <h4>📋 episode_XX_status.md</h4>
+                    <p><strong>Zweck:</strong> Zusammenfassung & Check.<br>
+                    <strong>Inhalt:</strong> Handlungszusammenfassung, Orte/Figuren, offene Fäden.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Abschnitt 7: Tipps -->
+        <section>
+            <h2><span class="icon">💡</span> Tipps für neue Episoden</h2>
+            
+            <p>Falls du später weitere Episoden schreiben möchtest, hier sind die wichtigsten Regeln:</p>
+
+            <ol class="step-list">
+                <li>
+                    <strong>Immer zuerst Welt-Bibel lesen!</strong>
+                    Bevor du eine Zeile schreibst, lade world_bible.md und story_master_plan.md. So stellst du sicher, dass alle Fakten stimmen.
+                </li>
+                <li>
+                    <strong>Sprache anpassen</strong>
+                    Sätze sollten maximal 25 Wörter lang sein. Vermeide abstrakte Begriffe wie „Einsamkeit" oder „Verantwortung". Zeige stattdessen, was die Figuren tun und fühlen.
+                </li>
+                <li>
+                    <strong>Samsons Innenleben</strong>
+                    Samson denkt nie in Worten! Sein Innenleben wird ausschließlich durch Verhalten gezeigt: hecheln, wedeln, Pfoten legen, Ohren zurücklegen.
+                </li>
+                <li>
+                    <strong>Moral natürlich einbauen</strong>
+                    Keine belehrenden Schlusspredigten! Die Werte sollten aus der Handlung entstehen, nicht als „Lektion" am Ende.
+                </li>
+                <li>
+                    <strong>Konsistenz prüfen</strong>
+                    Bootsnamen (Sonderborger Seeräube), Orte (Sønderborg mit ø) und Figurenbeschreibungen müssen überall gleich sein.
+                </li>
+            </ol>
+
+            <div class="warning-box">
+                <strong>⚠️ Häufige Fehler:</strong><br>
+                • Samson denkt in Worten („dachte: Spielzeit!")<br>
+                • „nabeln" statt „knabbern/nagen"<br>
+                • „Sonderborg" statt „Sønderborg"<br>
+                • Meta-Referenzen wie „in Episode 4"<br>
+                • Abstrakte Begriffe für 6-Jährige
+            </div>
+
+            <h3>Prompt-Vorlage für neue Episoden</h3>
+            
+            <div class="prompt-example">
+<span class="label">📝 PROMPT-VORLAGE FÜR NEUE EPISODEN</span>Du bist ein erfahrener Autor von Kinderbüchern für die Zielgruppe 6-8 Jahre.
+
+Aufgabe: Schreibe Episode [NUMMER]: „[TITEL]"
+
+Kontext aus vorherigen Episoden:
+[KURZFASSUNG ALLE VORHERIGEN EPISODEN]
+
+Welt-Bibel Referenz: Lies [PFAD ZUM WORLD_BIBLE.MD] für alle Fakten zu Figuren, 
+Orten und Regeln.
+
+Handlungsskizze für dieses Kapitel (aus story_master_plan.md):
+[HANDLUNGSSKIZZE AUS DEM MASTER PLAN]
+
+Anforderungen:
+- Sprache: Einfach, aber bildhaft (für Kinder ab 6 Jahren)
+- Länge: ca. 500 Wörter
+- Struktur: Klare Handlung mit einem kleinen Konflikt und einer Lösung
+- ACHTUNG: Halte dich strikt an die Regeln der Welt-Bibel!
+- Beziehe konkrete Orte aus der Welt-Bibel ein (z.B. „Café MARINA", „Krabbenparcours", „Buchenwälder")
+
+ARBEITSSCHRITTE:
+1. SCHREIBE das Kapitel und speichere es als episodes/episode_[NUMMER]_[TITEL].md
+2. ERSTELLE episodes/episode_[NUMMER]_status.md mit:
+   - Handlungszusammenfassung (max 10 Sätze)
+   - Wichtige Orte & Figuren
+   - Offene Fäden für spätere Episoden
+   - Stimmung/Ton
+3. AKTUALISIERE story_master_plan.md (Status von Episode [NUMMER] auf „✅ Fertig" setzen)
+4. GENERIERE next_goal.md mit:
+   - Exaktem Prompt für Episode [NUMMER+1] („[NÄCHSTE EPISODE]")
+   - Zusammenfassung aller bisherigen Episoden ([ALLE BISHERIGEN])
+   - Fortschrittsanzeige
+
+WICHTIG: Nach jedem Schritt die Dateien wirklich schreiben und prüfen!
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>🌊 Torge & Samson auf hoher See – Projekt-Dokumentation</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Erstellt mit ❤️ für die Familie Korell | Juni 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
