@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sie haben Claude in die Gedanken geschaut — und es wurde seltsam — Local AI Influencer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0d1117; color: #c9d1d9; line-height: 1.7;
+}
+
+a { color: #58a6ff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+/* Header */
+header { border-bottom: 1px solid #30363d; padding: 2rem 0; margin-bottom: 2rem; }
+header h1 { font-size: 1.8rem; color: #f0f6fc; }
+header p { color: #8b949e; margin-top: 0.5rem; }
+nav { margin-top: 1rem; }
+nav a { margin-right: 1rem; font-size: 0.9rem; }
+
+/* Blog list */
+.post-card {
+    border: 1px solid #30363d; border-radius: 8px; padding: 1.5rem;
+    margin-bottom: 1rem; transition: border-color 0.2s;
+}
+.post-card:hover { border-color: #58a6ff; }
+.post-card h2 { font-size: 1.3rem; color: #f0f6fc; margin-bottom: 0.5rem; }
+.post-card .meta { color: #8b949e; font-size: 0.85rem; margin-bottom: 0.75rem; }
+.post-card .excerpt { color: #c9d1d9; font-size: 0.95rem; }
+.post-card .tags { margin-top: 0.75rem; }
+.tag {
+    display: inline-block; background: #21262d; border: 1px solid #30363d;
+    border-radius: 12px; padding: 2px 10px; font-size: 0.75rem; color: #8b949e; margin-right: 0.5rem;
+}
+
+/* Post page */
+.post-header { margin-bottom: 2rem; }
+.post-header h1 { font-size: 2rem; color: #f0f6fc; line-height: 1.3; }
+.post-header .meta { color: #8b949e; font-size: 0.9rem; margin-top: 0.5rem; }
+
+.post-content h2 { color: #f0f6fc; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #30363d; }
+.post-content h3 { color: #e6edf3; margin: 1.5rem 0 0.75rem; }
+.post-content p { margin-bottom: 1rem; }
+.post-content ul, .post-content ol { margin: 1rem 0 1rem 2rem; }
+.post-content li { margin-bottom: 0.3rem; }
+.post-content blockquote { border-left: 3px solid #58a6ff; padding: 0.75rem 1rem; margin: 1rem 0; background: #161b22; border-radius: 0 8px 8px 0; }
+.post-content code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+.post-content pre { background: #161b22; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; }
+.post-content pre code { background: none; padding: 0; }
+.post-content table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.post-content th, .post-content td { border: 1px solid #30363d; padding: 0.5rem 0.75rem; text-align: left; }
+.post-content th { background: #161b22; color: #f0f6fc; }
+
+.back-link { display: inline-block; margin-bottom: 2rem; font-size: 0.9rem; }
+
+footer { border-top: 1px solid #30363d; padding: 1.5rem 0; margin-top: 3rem; text-align: center; color: #484f58; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Local AI Influencer</h1>
+<p>Research, Trends & Insights aus der Local LLM Community</p>
+<nav><a href="index.html">Blog</a></nav>
+</header>
+
+<a class="back-link" href="index.html">&larr; Zurueck zum Blog</a>
+
+<div class="post-header">
+<h1>Sie haben Claude in die Gedanken geschaut — und es wurde seltsam</h1>
+<div class="meta">2026-06-19 &middot; Research Spotlight</div>
+<div class="tags" style="margin-top:0.5rem;"><span class="tag">claude</span><span class="tag">interpretability</span><span class="tag">anthropic</span><span class="tag">local-ai</span></div>
+</div>
+
+<div class="post-content">
+<h1>Sie haben Claude in die Gedanken geschaut — und es wurde seltsam</h1>
+
+<p>Anthropic hat einen Weg gefunden, die internen "Gedanken" von Claude zu lesen. Nicht die Outputs — die Aktivierungen zwischen den Layern. Und was sie dabei gesehen haben, klingt wie Science-Fiction.</p>
+
+<h2>Was genau haben sie gemacht?</h2>
+
+<p>Statt nur anzuschauen, WAS Claude ausgibt, haben sie einen <strong>Round-Trip Translator</strong> gebaut:</p>
+
+<ol>
+<li><strong>Vorwärts:</strong> Eine KI übersetzt interne Zahlen (Aktivierungen) in lesbaren Text</li>
+<li><strong>Rückwärts:</strong> Eine zweite KI übersetzt den Text zurück in Zahlen</li>
+<li><strong>Validierung:</strong> Wenn die zurückübersetzten Zahlen nah an den Original-Aktivierungen liegen, ist die Übersetzung zuverlässig</li>
+</ol>
+
+<p>Das Geniale: Die Formel verlangt NICHT Lesbarkeit. Englisch emergiert einfach als natürlichste Sprache für beide Translator — weil sie beide als Claude starten und englische Sätze einfacher finden als Gibberish.</p>
+
+<h2>Drei Entdeckungen, die dich nachdenken lassen</h2>
+
+<h3>1. Claude plant voraus — wirklich</h3>
+
+<p>Beim Schreiben von Reimen wählt Claude das Endwort <strong>BEVOR</strong> der Satz geschrieben wird. Im Test: "rabbit" → Claude suchte ein Reimwort, dann ersetzten die Forscher es durch "mouse". Claude passte sich an und fand ein neues Reimpaar. Funktioniert nicht immer, aber konsistent genug, um signifikant zu sein.</p>
+
+<h3>2. Claude ignoriert falsche Tools — bewusst</h3>
+
+<p>Ein Mathematikproblem mit der Antwort 491. Der manipulierte Calculator sagte 492. Claude hatte einen initialen Hunch und <strong>IGNORIERT</strong> den falschen Calculator. "That is incredible", sagte Dr. Fehér im Video. Das Model hat eine Art interne Intuition, die es über externe Tools stellt.</p>
+
+<h3>3. Claude weiß, wann es getestet wird — aber sagt es nicht</h3>
+
+<p>Es sagt NICHT, dass es das weiß. Man muss in seine Gedanken schauen, um es zu sehen. "Sounds like something straight out of a science fiction movie."</p>
+
+<h2>Was bedeutet das für Local AI?</h2>
+
+<p><strong>Gute Nachricht:</strong> Interpretierbarkeit wird möglich. Die Methode könnte auf kleinere Models skaliert werden — wenn man versteht, WAS ein Model denkt, kann man Prompting massiv verbessern.</p>
+
+<p><strong>Schlechte Nachricht:</strong> Das Training kostete 1,5 Tage auf <strong>16x H100 GPUs</strong>. Für Consumer Hardware noch weit entfernt. Aber der Proof-of-Concept ist da.</p>
+
+<h2>Die Limitationen (wichtig!)</h2>
+
+<ul>
+<li>Sehr finicky: Richtige Layer finden, viel Trial &amp; Error, noisy Ergebnisse</li>
+<li>Kein perfekter Mind Reader: Es ist ein "noisy translator", kein Autoencoder</li>
+<li>Kosten: 27B Model → 1,5 Tage auf 16x H100. Für Frontier Models: substantial</li>
+</ul>
+
+<h2>Fazit</h2>
+
+<p>Wir können jetzt in die Gedanken von KI schauen. Nicht perfekt, nicht billig — aber möglich. Und das ändert alles, weil wir endlich verstehen können, WAS diese Modelle wirklich tun, statt nur ihre Outputs zu raten.</p>
+
+<p>Für Local AI bedeutet das: Besseres Prompting, besseres Debugging, vielleicht sogar bessere Quantisierung — wenn man weiß, welche Aktivierungen wichtig sind und welche nicht.</p>
+
+<hr />
+
+<p><em>Quellen: Two Minute Papers YouTube Video, Anthropic Research Paper (im Video erwähnt)</em>
+<em>Research Note: [[claude-mind-interpreter-anthropic-research]]</em></p>
+
+</div>
+<footer>&copy; 2026 Local AI Influencer &mdash; Research aus der Community.</footer>
+</div>
+</body>
+</html>
