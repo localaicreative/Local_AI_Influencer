@@ -190,54 +190,92 @@ def extract_topic_label(title):
     return " + ".join(w.title() for w in filtered[:2]) if filtered else "General"
 
 
-def cluster_inbox_notes(inbox_dir):
-    """Scan inbox directory and cluster notes by topic"""
+def _parse_note_file(note_file, date_str):
+    """Parse a single .md note file and return its metadata dict or None."""
+    try:
+        content = note_file.read_text(encoding='utf-8')[:2000]
+
+        # Extract title from frontmatter or first heading
+        title = ""
+        for line in content.split('\n'):
+            if line.startswith('# ') and not line.startswith('---'):
+                title = line[2:].strip()
+                break
+
+        if not title:
+            return None
+
+        # Extract attention score from frontmatter
+        att_match = re.search(r'attention-score:\s*(\d+)', content)
+        score = int(att_match.group(1)) if att_match else 0
+
+        blog_pot_match = re.search(r'blog-potential:\s*(\w+)', content)
+        blog_potential = blog_pot_match.group(1) if blog_pot_match else "low"
+
+        source_match = re.search(r'source-type:\s*(.+)', content)
+        source_type = source_match.group(1).strip() if source_match else "unknown"
+
+        topic = extract_topic(title)
+
+        return {
+            "title": title,
+            "file": str(note_file),
+            "score": score,
+            "blog_potential": blog_potential,
+            "source_type": source_type,
+            "date": date_str,
+        }
+    except Exception:
+        return None
+
+
+def cluster_inbox_notes(inbox_dir, trends_dir=None):
+    """Scan inbox directory (+ optional trends dir) and cluster notes by topic.
+
+    Primary source: _inbox/DATE/*.md  (structured daily inbox)
+    Fallback source: trends/*.md      (flat trend notes from research runs)
+
+    Notes are deduplicated by title to avoid double-counting when the same
+    note exists in both locations.
+    """
     clusters = defaultdict(list)
+    seen_titles = set()
 
-    if not inbox_dir.exists():
-        return clusters
+    def add_note(note_file, date_str):
+        meta = _parse_note_file(note_file, date_str)
+        if meta is None:
+            return
+        # Deduplicate by title (normalize whitespace)
+        key = re.sub(r'\s+', ' ', meta["title"].lower())
+        if key in seen_titles:
+            return
+        seen_titles.add(key)
+        topic = meta.pop("topic") if "topic" in meta else extract_topic(meta["title"])
+        # Re-derive topic from the returned meta (it was computed inside _parse_note_file)
+        clusters[extract_topic(meta["title"])].append(meta)
 
-    for day_dir in sorted(inbox_dir.iterdir()):
-        if not day_dir.is_dir():
-            continue
-
-        for note_file in day_dir.glob("*.md"):
-            try:
-                content = note_file.read_text(encoding='utf-8')[:2000]
-
-                # Extract title from frontmatter or first heading
-                title = ""
-                for line in content.split('\n'):
-                    if line.startswith('# ') and not line.startswith('---'):
-                        title = line[2:].strip()
-                        break
-
-                if not title:
-                    continue
-
-                # Extract attention score from frontmatter
-                att_match = re.search(r'attention-score:\s*(\d+)', content)
-                score = int(att_match.group(1)) if att_match else 0
-
-                blog_pot_match = re.search(r'blog-potential:\s*(\w+)', content)
-                blog_potential = blog_pot_match.group(1) if blog_pot_match else "low"
-
-                source_match = re.search(r'source-type:\s*(.+)', content)
-                source_type = source_match.group(1).strip() if source_match else "unknown"
-
-                topic = extract_topic(title)
-
-                clusters[topic].append({
-                    "title": title,
-                    "file": str(note_file),
-                    "score": score,
-                    "blog_potential": blog_potential,
-                    "source_type": source_type,
-                    "date": day_dir.name,
-                })
-
-            except Exception:
+    # 1. Primary: scan _inbox/DATE/*.md
+    if inbox_dir.exists():
+        for day_dir in sorted(inbox_dir.iterdir()):
+            if not day_dir.is_dir():
                 continue
+            for note_file in day_dir.glob("*.md"):
+                add_note(note_file, day_dir.name)
+
+    # 2. Fallback: scan trends/*.md (flat files without date subdirs)
+    if trends_dir and trends_dir.exists():
+        for note_file in sorted(trends_dir.glob("*.md")):
+            # Derive date from filename suffix like _260619 or file mtime
+            stem = note_file.stem
+            date_match = re.search(r'_(\d{6})$', stem)
+            if date_match:
+                raw = date_match.group(1)
+                date_str = f"20{raw[:2]}-{raw[2:4]}-{raw[4:6]}"
+            else:
+                # Use file modification time as fallback
+                mtime = note_file.stat().st_mtime
+                date_str = datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
+            add_note(note_file, date_str)
 
     # Sort each cluster by score descending
     for topic in clusters:
@@ -415,18 +453,10 @@ def main():
 
     vault_path = Path(args.vault_path)
     inbox_dir = vault_path / "_inbox"
+    trends_dir = vault_path / "trends"
 
-    if not inbox_dir.exists():
-        print("Fehler: _inbox/ Ordner nicht gefunden.")
-        print("Laufe zuerst run_research.py um Inbox-Notes zu erstellen.")
-        return
-
-    # Filter to last N days
-    cutoff = datetime.now() - timedelta(days=args.days)
-    recent_inbox = Path(inbox_dir / f"{cutoff.strftime('%Y-%m-%d')}")  # Create temp boundary
-
-    # Cluster all notes (we'll filter by date in the clustering function)
-    clusters = cluster_inbox_notes(inbox_dir)
+    # Cluster notes from inbox (primary) + trends (fallback)
+    clusters = cluster_inbox_notes(inbox_dir, trends_dir=trends_dir)
 
     if not args.suggest_blog:
         print_cluster_report(clusters)
