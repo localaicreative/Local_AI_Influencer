@@ -35,6 +35,9 @@ YOUTUBE_RSS_FEEDS = [
     ("Fferri's AI Newsletter", "https://www.youtube.com/feeds/videos.xml?channel_id=UCiRRuzgwrWMWw3GqWAtxOuQ"),
     ("LocalLLaMA", "https://www.youtube.com/feeds/videos.xml?channel_id=UC-Gb4Qs8Uq_rJeK0JQ8ANNA"),
     ("LlamaIndex", "https://www.youtube.com/feeds/videos.xml?channel_id=UCeRjipR4_SsCddq9VZ2AeKg"),
+    ("Digital Spaceport", "https://www.youtube.com/feeds/videos.xml?channel_id=UCiaQzXI5528Il6r2NNkrkJA"),
+    ("Zero To MVP", "https://www.youtube.com/feeds/videos.xml?channel_id=UCvN3QmpWy_eFG8gIU_Ij-RQ"),
+    ("Manolo Remiddi", "https://www.youtube.com/feeds/videos.xml?channel_id=UCK_jrlrPtFRPskVKBhGCqMw"),
 ]
 
 GITHUB_TRENDING_URL = "https://api.github.com/search/repositories"
@@ -138,7 +141,7 @@ def fetch_json(url):
 
 
 def parse_youtube_rss(xml_content):
-    """Parse YouTube RSS feed and extract items."""
+    """Parse YouTube RSS feed (Atom format) and extract items."""
     if not xml_content:
         return []
 
@@ -147,7 +150,13 @@ def parse_youtube_rss(xml_content):
     entry_pattern = re.compile(r'<entry>(.*?)</entry>', re.DOTALL)
     for entry in entry_pattern.findall(xml_content):
         title_m = re.search(r'<title>(.*?)</title>', entry)
-        link_m = re.search(r'<link\s+href="([^"]+)">', entry)
+        # Atom format: <link rel="alternate" href="...">  (not just <link href="...">)
+        link_m = re.search(r'<link\s+[^>]*href="([^"]+)"', entry)
+        if not link_m:
+            link_m = re.search(r'yt:videoId>([^<]+)', entry)
+            if link_m:
+                # Fallback: construct URL from video ID
+                link_m = type('M', (), {'group': lambda s, i: f"https://www.youtube.com/watch?v={entry.split('yt:videoId>')[1].split('<')[0]}"})()
         desc_m = re.search(r'<media:description.*?>(.*?)</media:description>', entry, re.DOTALL)
         pub_m = re.search(r'<published>(.*?)</published>', entry)
 
