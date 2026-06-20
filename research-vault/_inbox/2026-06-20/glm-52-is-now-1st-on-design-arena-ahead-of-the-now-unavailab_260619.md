@@ -2,13 +2,14 @@
 created: 2026-06-19
 tags: [research, auto-generated]
 status: new
+attention-score: 24
 source: r/LocalLLaMA Top
 source-type: Community
 relevance: high
 published: 
 ---
 
-# GLM-5.2 is a win for local AI
+# GLM-5.2 is now 1st on Design Arena — ahead of the now unavailable Claude Fable 5.
 
 ## Zusammenfassung
 
@@ -16,7 +17,7 @@ published:
 
 ## Quelle
 
-- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u8ai2a/glm52_is_a_win_for_local_ai/)
+- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u7qti8/glm52_is_now_1st_on_design_arena_ahead_of_the_now/)
 - **Typ:** Community
 - **Relevanz:** high
 

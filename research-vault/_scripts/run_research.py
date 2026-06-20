@@ -30,15 +30,11 @@ from urllib.request import urlopen, Request
 # ─── CONFIG ──────────────────────────────────────────────────────
 
 YOUTUBE_RSS_FEEDS = [
-    # Use YouTube search-based RSS instead of channel feeds (more reliable)
-    ("YouTube: local LLM", "https://www.youtube.com/feeds/videos.xml?channel_id=UCW6TXNd5EMMFjln1Qfno8Cw"),  # Two Minute Papers new ID
-    ("YouTube: AI News", "https://www.youtube.com/feeds/videos.xml?channel_id=UCSPEjw8F2nQD3v44pgwlLtw"),  # AI Explained new ID
-]
-
-# Fallback: if RSS fails, use these search URLs for manual collection
-YOUTUBE_SEARCH_FALLBACK = [
-    "https://www.youtube.com/results?search_query=local+LLM+inference+2026",
-    "https://www.youtube.com/results?search_query=llama+qwen+mistral+model+review",
+    ("Two Minute Papers", "https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg"),
+    ("AI Explained", "https://www.youtube.com/feeds/videos.xml?channel_id=UCBjkbmzVplPgVF-GheNYWCg"),
+    ("Fferri's AI Newsletter", "https://www.youtube.com/feeds/videos.xml?channel_id=UCiRRuzgwrWMWw3GqWAtxOuQ"),
+    ("LocalLLaMA", "https://www.youtube.com/feeds/videos.xml?channel_id=UC-Gb4Qs8Uq_rJeK0JQ8ANNA"),
+    ("LlamaIndex", "https://www.youtube.com/feeds/videos.xml?channel_id=UCeRjipR4_SsCddq9VZ2AeKg"),
 ]
 
 GITHUB_TRENDING_URL = "https://api.github.com/search/repositories"
@@ -208,7 +204,7 @@ def fetch_github():
 
 
 def fetch_huggingface():
-    """Fetch trending models from HuggingFace."""
+    """Fetch trending models from HuggingFace — only recent ones (<30 days)."""
     print("  [HUGGINGFACE] Fetching trending models...")
     data = fetch_json(HUGGINGFACE_TRENDING_URL)
     items = []
@@ -216,18 +212,33 @@ def fetch_huggingface():
     if not data:
         return items
 
+    # Filter: only models modified in last 30 days (skip established/old models)
+    from datetime import timedelta
+    cutoff = datetime.now() - timedelta(days=30)
+
     for model in data:
         title = model.get("modelId", "")
         likes = model.get("likes", 0)
         tags = model.get("tags", [])
         pipeline_tag = model.get("pipeline_tag", "")
+        last_modified = model.get("lastModified", "")
+
+        # Skip old models (no lastModified or >30 days old)
+        if last_modified:
+            try:
+                mod_date = datetime.fromisoformat(last_modified.replace('Z', '+00:00'))
+                if mod_date < cutoff:
+                    continue  # Too old, skip
+            except (ValueError, TypeError):
+                pass  # Parse failed, include anyway
+
         description = f"{likes} likes | {pipeline_tag}" if pipeline_tag else f"{likes} likes"
 
         items.append({
             "title": title,
             "url": f"https://huggingface.co/{title}",
             "description": description,
-            "published": "",
+            "published": last_modified[:10] if last_modified else "",
             "source_name": "HuggingFace Trending",
             "tags": tags,  # Pass tags for relevance check
         })

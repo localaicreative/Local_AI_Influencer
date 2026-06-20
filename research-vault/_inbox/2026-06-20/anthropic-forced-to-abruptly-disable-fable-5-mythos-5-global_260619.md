@@ -2,13 +2,14 @@
 created: 2026-06-19
 tags: [research, auto-generated]
 status: new
+attention-score: 34
 source: r/LocalLLaMA Top
 source-type: Community
-relevance: high
+relevance: medium
 published: 
 ---
 
-# when fable gets banned but it's ok because you've about to download qwen3.7_67b_21a_mythos_father_fable_mother_distilled_ablated_ablitereted_uncensored_agi_sparse_attention_MTP_SuperHOT_q6_maybe_q7_AGI_FINAL.gguf from huggingface
+# Anthropic forced to abruptly disable Fable 5 & Mythos 5 globally by US Gov over a jailbreak. This is exactly why we need local models.
 
 ## Zusammenfassung
 
@@ -16,9 +17,9 @@ published:
 
 ## Quelle
 
-- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u4l98a/when_fable_gets_banned_but_its_ok_because_youve/)
+- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u4e1p5/anthropic_forced_to_abruptly_disable_fable_5/)
 - **Typ:** Community
-- **Relevanz:** high
+- **Relevanz:** medium
 
 ## Nächste Schritte
 

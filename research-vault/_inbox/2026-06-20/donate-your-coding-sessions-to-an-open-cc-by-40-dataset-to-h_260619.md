@@ -2,13 +2,14 @@
 created: 2026-06-19
 tags: [research, auto-generated]
 status: new
+attention-score: 18
 source: r/LocalLLaMA Top
 source-type: Community
 relevance: medium
 published: 
 ---
 
-# Anthropic forced to abruptly disable Fable 5 & Mythos 5 globally by US Gov over a jailbreak. This is exactly why we need local models.
+# Donate your coding sessions to an open CC-BY-4.0 dataset to help train open-weight and open source models
 
 ## Zusammenfassung
 
@@ -16,7 +17,7 @@ published:
 
 ## Quelle
 
-- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u4e1p5/anthropic_forced_to_abruptly_disable_fable_5/)
+- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u795pb/donate_your_coding_sessions_to_an_open_ccby40/)
 - **Typ:** Community
 - **Relevanz:** medium
 

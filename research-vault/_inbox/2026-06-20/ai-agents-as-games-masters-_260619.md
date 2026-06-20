@@ -2,13 +2,14 @@
 created: 2026-06-19
 tags: [research, auto-generated]
 status: new
-source: r/LocalLLaMA Top
-source-type: Community
+attention-score: 20
+source: Two Minute Papers
+source-type: Video
 relevance: medium
 published: 
 ---
 
-# Donate your coding sessions to an open CC-BY-4.0 dataset to help train open-weight and open source models
+# AI Agents as "Games Masters"? 🎮🔥
 
 ## Zusammenfassung
 
@@ -16,8 +17,8 @@ published:
 
 ## Quelle
 
-- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u795pb/donate_your_coding_sessions_to_an_open_ccby40/)
-- **Typ:** Community
+- **Feed:** [Two Minute Papers](https://www.youtube.com/shorts/82m7YqosdgU)
+- **Typ:** Video
 - **Relevanz:** medium
 
 ## Nächste Schritte

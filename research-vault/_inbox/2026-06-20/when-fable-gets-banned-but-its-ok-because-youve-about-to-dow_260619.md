@@ -2,13 +2,14 @@
 created: 2026-06-19
 tags: [research, auto-generated]
 status: new
+attention-score: 34
 source: r/LocalLLaMA Top
 source-type: Community
 relevance: high
 published: 
 ---
 
-# GLM-5.2 is now 1st on Design Arena — ahead of the now unavailable Claude Fable 5.
+# when fable gets banned but it's ok because you've about to download qwen3.7_67b_21a_mythos_father_fable_mother_distilled_ablated_ablitereted_uncensored_agi_sparse_attention_MTP_SuperHOT_q6_maybe_q7_AGI_FINAL.gguf from huggingface
 
 ## Zusammenfassung
 
@@ -16,7 +17,7 @@ published:
 
 ## Quelle
 
-- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u7qti8/glm52_is_now_1st_on_design_arena_ahead_of_the_now/)
+- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u4l98a/when_fable_gets_banned_but_its_ok_because_youve/)
 - **Typ:** Community
 - **Relevanz:** high
 

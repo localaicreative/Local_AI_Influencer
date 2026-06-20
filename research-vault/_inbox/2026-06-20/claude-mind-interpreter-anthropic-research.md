@@ -2,6 +2,7 @@
 created: 2026-06-19
 tags: [research, youtube, claude, interpretability]
 status: new
+attention-score: 39
 source: Two Minute Papers (YouTube)
 source-type: Video
 relevance: high

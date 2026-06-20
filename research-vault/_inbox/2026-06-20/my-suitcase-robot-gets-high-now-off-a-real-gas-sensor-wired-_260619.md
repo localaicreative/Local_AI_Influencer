@@ -2,13 +2,14 @@
 created: 2026-06-19
 tags: [research, auto-generated]
 status: new
+attention-score: 18
 source: r/LocalLLaMA Top
 source-type: Community
 relevance: medium
 published: 
 ---
 
-# Stop using Ollama
+# My suitcase robot gets high now off a real gas sensor wired straight into the LLM sampler. Smoke raises temperature/top_p/top_k live, so his speech genuinely gets loopier and never repeats.
 
 ## Zusammenfassung
 
@@ -16,7 +17,7 @@ published:
 
 ## Quelle
 
-- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u6s6pm/stop_using_ollama/)
+- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u9a17y/my_suitcase_robot_gets_high_now_off_a_real_gas/)
 - **Typ:** Community
 - **Relevanz:** medium
 

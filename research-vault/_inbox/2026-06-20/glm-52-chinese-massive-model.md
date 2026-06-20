@@ -2,6 +2,7 @@
 created: 2026-06-19
 tags: [trend, local-llm, chinese-models]
 status: new
+attention-score: 21
 sources:
   - https://huggingface.co/models?sort=trending
 ---

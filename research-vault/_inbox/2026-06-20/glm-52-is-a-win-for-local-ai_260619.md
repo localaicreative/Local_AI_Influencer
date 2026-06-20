@@ -2,13 +2,14 @@
 created: 2026-06-19
 tags: [research, auto-generated]
 status: new
-source: Two Minute Papers
-source-type: Video
-relevance: medium
+attention-score: 21
+source: r/LocalLLaMA Top
+source-type: Community
+relevance: high
 published: 
 ---
 
-# AI Agents as "Games Masters"? 🎮🔥
+# GLM-5.2 is a win for local AI
 
 ## Zusammenfassung
 
@@ -16,9 +17,9 @@ published:
 
 ## Quelle
 
-- **Feed:** [Two Minute Papers](https://www.youtube.com/shorts/82m7YqosdgU)
-- **Typ:** Video
-- **Relevanz:** medium
+- **Feed:** [r/LocalLLaMA Top](https://www.reddit.com/r/LocalLLaMA/comments/1u8ai2a/glm52_is_a_win_for_local_ai/)
+- **Typ:** Community
+- **Relevanz:** high
 
 ## Nächste Schritte
 

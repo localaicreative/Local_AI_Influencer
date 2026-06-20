@@ -2,6 +2,7 @@
 created: 2026-06-19
 tags: [trend, local-llm, qwen]
 status: new
+attention-score: 24
 sources:
   - https://huggingface.co/models?sort=trending
 ---

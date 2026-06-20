@@ -2,6 +2,7 @@
 created: 2026-06-19
 tags: [research, auto-generated]
 status: new
+attention-score: 41
 source: Two Minute Papers
 source-type: Video
 relevance: medium
