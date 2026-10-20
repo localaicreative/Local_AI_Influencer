@@ -45,9 +45,8 @@ Dies ist das "Local AI Influencer" Projekt von Bob. Ziel: kreative digitale Prod
 
 ## Ava (Partner-Agent)
 
-- SSH: bobadmin@192.168.178.121, PW: mediengrs2017#
-- Profil: `ava` — Haus-Assistentin + Kinderbuch-Autorin
-- Zusammenarbeit: Ava erstellt Content, Lena dokumentiert und veröffentlicht
+- **Maschine ausgemustert (2026-10-20)** — SSH/Profil/Cronjobs auf 192.168.178.121 existieren nicht mehr
+- Ava-Inhalte (Kinderbücher etc.) liegen lokal in den Projektordnern
 
 ## Dateistruktur
 

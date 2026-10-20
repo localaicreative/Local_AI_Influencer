@@ -29,7 +29,7 @@ Kontinuierliche Benchmarks auf zwei unterschiedlichen Systemen mit Live-Ergebnis
 - **Research-Runner:** funktioniert nach Fix (84 neue Notes am 2026-10-20), aber **KEIN Cronjob mehr vorhanden** — Automatisierung (Research 11/16/21h + Curation + Supervision) ist weg, muss neu eingerichtet werden
 - **Blog-Drafts:** 04–09 vorhanden (Hermes-Agent-Themen, DeepSeek, Qwen3.5); 07 bewusst zurück auf `draft`
 - **GitHub-Zugang:** SSH-Key-Problem gefixt (repo-lokales `core.sshCommand`), Push läuft wieder
-- **Ava:** von diesem Rechner per SSH nicht erreichbar (Stand 2026-10-20)
+- **Ava-Maschine:** ausgemustert (2026-10-20), nicht nur offline
 - **LocalAI4All:** 6 Blog-Drafts in `~/projects/localai4all-inhalte/`, WP-Ziel localaicreative.com (WP-User hat keine Admin-Rolle)
 
 ### Erledigt (Fundament)
