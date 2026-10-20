@@ -21,7 +21,16 @@ Kontinuierliche Benchmarks auf zwei unterschiedlichen Systemen mit Live-Ergebnis
 
 ---
 
-## Aktueller Status: Umstrukturierung auf 2 Priority-Tracks
+## Aktueller Status: Betrieb läuft, Automatisierung wiederbeleben (Stand 2026-10-20)
+
+### Verifizierter Ist-Zustand (2026-10-20 geprüft)
+- **Website live:** GitHub Pages (auto-build via Actions), Blog mit Artikeln, Content Factory Pipeline v2
+- **Dashboard:** Port 8888 mit Draft-Editor + Auto-Publish (veröffentlicht direkt auf main)
+- **Research-Runner:** funktioniert nach Fix (84 neue Notes am 2026-10-20), aber **KEIN Cronjob mehr vorhanden** — Automatisierung (Research 11/16/21h + Curation + Supervision) ist weg, muss neu eingerichtet werden
+- **Blog-Drafts:** 04–09 vorhanden (Hermes-Agent-Themen, DeepSeek, Qwen3.5); 07 bewusst zurück auf `draft`
+- **GitHub-Zugang:** SSH-Key-Problem gefixt (repo-lokales `core.sshCommand`), Push läuft wieder
+- **Ava:** von diesem Rechner per SSH nicht erreichbar (Stand 2026-10-20)
+- **LocalAI4All:** 6 Blog-Drafts in `~/projects/localai4all-inhalte/`, WP-Ziel localaicreative.com (WP-User hat keine Admin-Rolle)
 
 ### Erledigt (Fundament)
 - [x] GitHub-Account angelegt (`localaicreative`)
@@ -73,6 +82,7 @@ Kontinuierliche Benchmarks auf zwei unterschiedlichen Systemen mit Live-Ergebnis
 | 2026-06-15 | Repo init, README, Template, SSH-Key setup | GitHub-Repo erstellen, pushen, Entscheidungen treffen |
 | 2026-06-15 | Privates Repo erstellt & gepusht, Kinderbuch dokumentiert | GOAL-Prompt + Validierungssystem implementiert |
 | 2026-06-16 | Content-Pipeline: Strategie, Meta-Prompts, Ava Setup, erste Trend-Recherche mit 3 Topic-Vorschlägen | Bob wählt erstes Thema fuer Blogartikel |
+| 2026-10-20 | 4 Monate Arbeit committet+gepusht, SSH-Push gefixt, Research-Runner getestet (84 Notes), GOAL.md validiert — Cron-Automatisierung fehlt komplett | Bob: Fokus wählen (Cron wieder einrichten? Track 1? Drafts veröffentlichen?) |
 
 ---
 
