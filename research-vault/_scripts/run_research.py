@@ -31,21 +31,15 @@ from urllib.request import urlopen, Request
 
 YOUTUBE_RSS_FEEDS = [
     ("Two Minute Papers", "https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg"),
-    ("AI Explained", "https://www.youtube.com/feeds/videos.xml?channel_id=UCBjkbmzVplPgVF-GheNYWCg"),
-    ("Fferri's AI Newsletter", "https://www.youtube.com/feeds/videos.xml?channel_id=UCiRRuzgwrWMWw3GqWAtxOuQ"),
-    ("LocalLLaMA", "https://www.youtube.com/feeds/videos.xml?channel_id=UC-Gb4Qs8Uq_rJeK0JQ8ANNA"),
-    ("LlamaIndex", "https://www.youtube.com/feeds/videos.xml?channel_id=UCeRjipR4_SsCddq9VZ2AeKg"),
-    ("Digital Spaceport", "https://www.youtube.com/feeds/videos.xml?channel_id=UCiaQzXI5528Il6r2NNkrkJA"),
     ("Zero To MVP", "https://www.youtube.com/feeds/videos.xml?channel_id=UCvN3QmpWy_eFG8gIU_Ij-RQ"),
-    ("Manolo Remiddi", "https://www.youtube.com/feeds/videos.xml?channel_id=UCK_jrlrPtFRPskVKBhGCqMw"),
 ]
 
 GITHUB_TRENDING_URL = "https://api.github.com/search/repositories"
 
-HUGGINGFACE_TRENDING_URL = "https://huggingface.co/api/models?sort=likes&direction=-1&limit=20"
+HUGGINGFACE_TRENDING_URL = "https://huggingface.co/api/models?sort=lastModified&direction=-1&limit=30"
 
 REDDIT_RSS_FEEDS = [
-    ("r/LocalLLaMA Top", "https://www.reddit.com/r/LocalLLaMA/top/.rss?t=week"),
+    ("r/LocalLLaMA Hot", "https://www.reddit.com/r/LocalLLaMA/hot/.rss"),
 ]
 
 # Keywords that indicate local LLM relevance
@@ -117,7 +111,14 @@ def fetch_xml(url):
     """Fetch XML content from a URL."""
     try:
         ctx = ssl.create_default_context()
-        req = Request(url, headers={"User-Agent": "Mozilla/5.0 LocalLLM-Research/1.0"})
+        # Rotate user agents to avoid Reddit rate limiting
+        import random
+        ua = random.choice([
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+        ])
+        req = Request(url, headers={"User-Agent": ua})
         with urlopen(req, timeout=30, context=ctx) as response:
             return response.read().decode('utf-8')
     except Exception as e:
@@ -190,40 +191,51 @@ def fetch_youtube(sources):
 
 
 def fetch_github():
-    """Fetch trending repos from GitHub."""
+    """Fetch trending repos from GitHub — only last 7 days."""
     print("  [GITHUB] Fetching trending local LLM repos...")
-    # Search for recent repos with local LLM keywords (URL-encoded queries)
-    queries = ["local+llm+inference", "llama.cpp+gguf", "quantized+model"]
+    # Dynamic date: 7 days ago
+    from datetime import timedelta
+    since = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
+    queries = [
+        "local+llama.cpp",
+        "local+inference+gguf",
+        "llm+quantization",
+        "local+AI+server",
+    ]
     all_items = []
 
     for q in queries:
-        params = f"?q={q}+created%3A%3E2026-05-01&sort=stars&order=desc&per_page=10"
+        params = f"?q={q}+created:>{since}&sort=stars&order=desc&per_page=10"
         data = fetch_json(GITHUB_TRENDING_URL + params)
-        if data and "items" in data:
-            for repo in data["items"]:
-                all_items.append({
-                    "title": f"{repo['full_name']} — {repo.get('description', '')[:100]}",
-                    "url": repo["html_url"],
-                    "description": repo.get("description", "") or "",
-                    "published": repo.get("created_at", "")[:10],
-                    "source_name": "GitHub Trending",
-                })
+        if not data or "items" not in data:
+            print(f"    [WARN] GitHub query '{q}' returned no results (rate limit? skip)")
+            continue
+        for repo in data["items"]:
+            if repo is None:
+                continue
+            all_items.append({
+                "title": f"{repo['full_name']} — {(repo.get('description') or '')[:100]}",
+                "url": repo["html_url"],
+                "description": repo.get("description") or "",
+                "published": (repo.get("created_at") or "")[:10],
+                "source_name": "GitHub Trending",
+            })
 
     return all_items
 
 
 def fetch_huggingface():
-    """Fetch trending models from HuggingFace — only recent ones (<30 days)."""
-    print("  [HUGGINGFACE] Fetching trending models...")
+    """Fetch trending models from HuggingFace — only recent ones (<7 days)."""
+    print("  [HUGGINGFACE] Fetching recently modified models...")
     data = fetch_json(HUGGINGFACE_TRENDING_URL)
     items = []
 
     if not data:
         return items
 
-    # Filter: only models modified in last 30 days (skip established/old models)
+    # Filter: only models modified in last 7 days (skip established/old models)
     from datetime import timedelta
-    cutoff = datetime.now() - timedelta(days=30)
+    cutoff = datetime.now() - timedelta(days=7)
 
     for model in data:
         title = model.get("modelId", "")
@@ -258,7 +270,10 @@ def fetch_huggingface():
 def fetch_reddit():
     """Fetch from Reddit RSS feeds."""
     all_items = []
-    for name, url in REDDIT_RSS_FEEDS:
+    for i, (name, url) in enumerate(REDDIT_RSS_FEEDS):
+        if i > 0:
+            import time
+            time.sleep(2)  # Rate limit avoidance between calls
         print(f"  [REDDIT] Fetching {name}...")
         xml = fetch_xml(url)
         if not xml:

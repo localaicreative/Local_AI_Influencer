@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Agent Tutorial — Apps bauen</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #c9d1d9; --muted: #8b949e; --accent: #58a6ff;
+    --green: #3fb950; --orange: #d29922; --purple: #bc8cff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    background: var(--bg); color: var(--text);
+    padding: 24px; max-width: 900px; margin: 0 auto;
+    line-height: 1.6;
+  }
+  h1 { font-size: 1.5rem; color: var(--accent); margin-bottom: 8px; }
+  h2 { font-size: 1.1rem; color: var(--purple); margin: 24px 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+  p { margin-bottom: 12px; color: var(--text); }
+  .subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 24px; }
+
+  /* Prompt Block */
+  .prompt-block {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; margin: 16px 0; overflow: hidden;
+  }
+  .prompt-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px; background: rgba(88,166,255,0.05);
+    border-bottom: 1px solid var(--border);
+  }
+  .prompt-label { font-size: 0.7rem; color: var(--accent); font-weight: 600; text-transform: uppercase; }
+  .copy-btn {
+    background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.3);
+    color: var(--accent); padding: 2px 8px; border-radius: 4px; cursor: pointer;
+    font-size: 0.65rem; font-family: inherit; transition: all 0.2s;
+  }
+  .copy-btn:hover { background: rgba(88,166,255,0.25); border-color: var(--accent); }
+  .copy-btn.copied { background: rgba(63,185,80,0.2); border-color: var(--green); color: var(--green); }
+  .prompt-content {
+    padding: 12px; font-size: 0.8rem; white-space: pre-wrap;
+    color: var(--text); line-height: 1.5;
+  }
+
+  /* Explanation */
+  .explanation {
+    background: rgba(188,140,255,0.05); border-left: 3px solid var(--purple);
+    padding: 12px 16px; margin: 12px 0; font-size: 0.8rem; color: var(--muted);
+  }
+
+  /* Tip */
+  .tip {
+    background: rgba(63,185,80,0.05); border-left: 3px solid var(--green);
+    padding: 12px 16px; margin: 12px 0; font-size: 0.8rem; color: var(--muted);
+  }
+
+  /* Navigation */
+  .nav { display: flex; gap: 12px; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .nav-btn {
+    background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.3);
+    color: var(--accent); padding: 8px 16px; border-radius: 6px; cursor: pointer;
+    font-size: 0.8rem; font-family: inherit; text-decoration: none; transition: all 0.2s;
+  }
+  .nav-btn:hover { background: rgba(88,166,255,0.25); border-color: var(--accent); }
+
+  /* Progress */
+  .progress-bar { display: flex; gap: 4px; margin-bottom: 24px; }
+  .step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+  .step-dot.active { background: var(--accent); box-shadow: 0 0 6px rgba(88,166,255,0.4); }
+  .step-dot.done { background: var(--green); }
+
+  /* Download */
+  .download-section { text-align: center; margin-top: 32px; padding: 24px; border: 1px dashed var(--border); border-radius: 8px; }
+  .download-btn {
+    display: inline-block; background: rgba(63,185,80,0.1); border: 1px solid rgba(63,185,80,0.3);
+    color: var(--green); padding: 8px 24px; border-radius: 6px; cursor: pointer;
+    font-size: 0.85rem; font-family: inherit; text-decoration: none; transition: all 0.2s;
+  }
+  .download-btn:hover { background: rgba(63,185,80,0.25); border-color: var(--green); }
+</style>
+</head>
+<body>
+
+<h1>&gt; Hermes Agent Tutorial — So habe ich die Apps gebaut _</h1>
+<p class="subtitle">Interaktives Tutorial mit kopierbaren Prompts | 6 Schritte | ~20 Min</p>
+
+<div class="progress-bar" id="progress">
+  <div class="step-dot active"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+</div>
+
+<h2>Schritt 1: Hermes Agent installieren und konfigurieren</h2>
+<p>Zuerst brauchst du Hermes Agent lokal installiert. Hier ist der Prompt um das Setup zu starten:</p>
+
+<div class="prompt-block">
+  <div class="prompt-header">
+    <span class="prompt-label">Prompt 1 — Installation</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">📋 Kopieren</button>
+  </div>
+  <div class="prompt-content" id="prompt-1">Installiere Hermes Agent auf meinem System und konfiguriere ein erstes Profil. Ich habe LM Studio mit Qwen 3.6 27B auf localhost:1234 laufen.</div>
+</div>
+
+<div class="explanation">
+<strong>Was passiert:</strong> Dieser Prompt lässt Hermes sich selbst installieren, das Profil erstellen und die Verbindung zu deinem lokalen LM Studio-Server herstellen. Du kannst den Prompt direkt in die CLI kopieren: <code>hermes chat -q "..."</code>
+</div>
+
+<div class="tip">
+<strong>Tipp:</strong> Wenn du bereits ein Profil hast, springe direkt zu Schritt 3 und passe den Prompt an deine Bedürfnisse an.
+</div>
+
+<h2>Schritt 2: Dein erstes Skill erstellen</h2>
+<p>Skills sind wiederverwendbare Workflows. Lass uns einen einfachen Research-Skill bauen:</p>
+
+<div class="prompt-block">
+  <div class="prompt-header">
+    <span class="prompt-label">Prompt 2 — Skill erstellen</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">📋 Kopieren</button>
+  </div>
+  <div class="prompt-content" id="prompt-2">Erstelle einen neuen Skill namens 'research-collector' der automatisch nach neuen AI/ML News sucht, sie bewertet und im Research-Inbox speichert. Verwende das Coding Quality Gate Framework.</div>
+</div>
+
+<div class="explanation">
+<strong>Was passiert:</strong> Hermes erstellt den Skill mit SKILL.md, Templates und Scripts. Das Coding Quality Gate stellt sicher, dass der Code sauber ist und Best Practices folgt.
+</div>
+
+<h2>Schritt 3: Cronjob für automatische Research setzen</h2>
+<p>Mach aus dem Skill einen autonomen Job der regelmäßig läuft:</p>
+
+<div class="prompt-block">
+  <div class="prompt-header">
+    <span class="prompt-label">Prompt 3 — Cronjob erstellen</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">📋 Kopieren</button>
+  </div>
+  <div class="prompt-content" id="prompt-3">Richte einen Cronjob ein der den research-collector Skill täglich um 11:00, 16:00 und 21:00 Uhr ausführt. Die Ergebnisse sollen lokal gespeichert werden.</div>
+</div>
+
+<div class="explanation">
+<strong>Was passiert:</strong> Drei Cronjobs werden erstellt die den Research-Skill automatisch ausführen. Die Ergebnisse landen im Research-Inbox deines Profils.
+</div>
+
+<h2>Schritt 4: Dashboard für Monitoring bauen</h2>
+<p>Jetzt brauchen wir eine Übersicht über Hardware, Research und Blog-Drafts:</p>
+
+<div class="prompt-block">
+  <div class="prompt-header">
+    <span class="prompt-label">Prompt 4 — Dashboard</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">📋 Kopieren</button>
+  </div>
+  <div class="prompt-content" id="prompt-4">Baue ein Flask-Dashboard auf Port 8888 das Hardware-Metriken (GPU, CPU, RAM, PSU), Research-Inbox Items, Blog-Drafts und Cronjob-Status anzeigt. Verwende dark theme mit monospace Font.</div>
+</div>
+
+<div class="explanation">
+<strong>Was passiert:</strong> Hermes erstellt server.py mit allen API-Endpunkten und einem inline HTML/CSS/JS Dashboard. Das Ergebnis ist genau das Dashboard was du jetzt siehst!
+</div>
+
+<h2>Schritt 5: Blog-Automatisierung einrichten</h2>
+<p>Vom Research-Inbox zum veröffentlichten Blog-Artikel:</p>
+
+<div class="prompt-block">
+  <div class="prompt-header">
+    <span class="prompt-label">Prompt 5 — Auto-Curation</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">📋 Kopieren</button>
+  </div>
+  <div class="prompt-content" id="prompt-5">Erstelle einen wöchentlichen Cronjob der die besten Research-Inbox Items identifiziert, Blog-Vorschläge generiert und automatisch Drafts erstellt. Die Drafts sollen im blog-drafts/ Ordner landen.</div>
+</div>
+
+<div class="explanation">
+<strong>Was passiert:</strong> Ein Auto-Curation Job läuft sonntags um 10:00 Uhr, bewertet die Research-Items nach Blog-Potential und erstellt fertige Draft-Skelette mit Zusammenfassungen.
+</div>
+
+<h2>Schritt 6: Supervision und Wartung</h2>
+<p>Stelle sicher dass alles sauber läuft:</p>
+
+<div class="prompt-block">
+  <div class="prompt-header">
+    <span class="prompt-label">Prompt 6 — Supervision</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">📋 Kopieren</button>
+  </div>
+  <div class="prompt-content" id="prompt-6">Richte einen wöchentlichen Supervision-Job ein der prüft: Framework-Konsistenz, Skill-Audit (veraltete Skills identifizieren), Cronjob-Health und generiert einen Report.</div>
+</div>
+
+<div class="explanation">
+<strong>Was passiert:</strong> Der Supervision-Job prüft alle Skills auf Konsistenz, identifiziert veraltete Kandidaten und erstellt einen wöchentlichen Health-Report.
+</div>
+
+<div class="download-section">
+<p style="margin-bottom: 16px;">Tutorial als PDF herunterladen oder alle Prompts kopieren:</p>
+<a href="#" class="download-btn" onclick="downloadAllPrompts()">📄 Alle Prompts exportieren</a>
+<span style="color: var(--muted); font-size: 0.75rem; margin-left: 12px;">oder als PDF drucken (Ctrl+P)</span>
+</div>
+
+<div class="nav">
+  <button class="nav-btn" onclick="prevStep()">← Zurück</button>
+  <button class="nav-btn" onclick="nextStep()">Weiter →</button>
+</div>
+
+<script>
+let currentStep = 1;
+const totalSteps = 6;
+
+function copyPrompt(btn) {
+  const content = btn.closest('.prompt-block').querySelector('.prompt-content').textContent;
+  navigator.clipboard.writeText(content).then(() => {
+    btn.textContent = '✅ Kopiert!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 Kopieren';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function updateProgress() {
+  const dots = document.querySelectorAll('.step-dot');
+  dots.forEach((dot, i) => {
+    dot.className = 'step-dot';
+    if (i < currentStep - 1) dot.classList.add('done');
+    if (i === currentStep - 1) dot.classList.add('active');
+  });
+}
+
+function nextStep() {
+  if (currentStep < totalSteps) {
+    currentStep++;
+    updateProgress();
+    document.getElementById(`prompt-${currentStep}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    updateProgress();
+    document.getElementById(`prompt-${currentStep}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function downloadAllPrompts() {
+  let text = "Hermes Agent Tutorial — Alle Prompts\n";
+  text += "=" .repeat(50) + "\n\n";
+  for (let i = 1; i <= totalSteps; i++) {
+    const content = document.getElementById(`prompt-${i}`).textContent;
+    text += `Schritt ${i}:\n${content}\n\n`;
+  }
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'hermes-agent-tutorial-prompts.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') nextStep();
+  if (e.key === 'ArrowLeft') prevStep();
+});
+</script>
+
+</body>
+</html>

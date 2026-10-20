@@ -3,7 +3,7 @@ title: "Die 5 Level der Hermes-Agent-Nutzung — Wo stehst du?"
 slug: die-5-level-der-hermes-agent-nutzung
 category: guide
 tags: [hermes-agent, local-ai, tutorial, produktivitaet]
-status: published
+status: draft
 created: 2026-06-20
 sources: []
 ---
