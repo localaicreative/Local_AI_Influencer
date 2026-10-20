@@ -49,13 +49,10 @@ Nachdem eine Entscheidung gefallen ist, generiere einen neuen `/goal` Prompt:
 - Remote: https://github.com/localaicreative/Local_AI_Influencer (private, branch `main`)
 - Git User: Bob (Local AI Creative) <localaicreative@gmail.com>
 
-## Ava (Partner-Agent auf Xeon)
+## Ava (Partner-Agent)
 
-- SSH: bobadmin@192.168.178.121, PW: mediengrs2017#
-- Profil: `ava` — Haus-Assistentin + Kinderbuch-Autorin
-- Skills: childrens-book-creation (World Bible → Kapitel), himalaya (E-Mail), iserv (Schulplattform)
-- Cronjobs: E-Mail Monitoring, WordPress Uploader, Vertretungsplan, Spam-Filter
-- **Zusammenarbeit:** Ava erstellt Content (Texte, Doku), Lena dokumentiert und veröffentlicht
+- **Maschine ausgemustert (2026-10-20)** — SSH/Profil/Cronjobs existieren nicht mehr
+- Ava-Inhalte liegen lokal in den Projektordnern
 
 ## Scope
 
